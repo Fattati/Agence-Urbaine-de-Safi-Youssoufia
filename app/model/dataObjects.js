@@ -28,7 +28,7 @@ class Client {
 }
 // 
 class Service {
-    constructor() {
+    constructor(nomService, descriptionService) {
         this.id = null;
         this.nom = nomService;
         this.description = descriptionService;
@@ -42,3 +42,4 @@ class Service {
         return [this.id, this.nom, this.description];
     }
 }
+// 
