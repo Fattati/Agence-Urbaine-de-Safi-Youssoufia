@@ -15,5 +15,7 @@
   "bugs": {
     "url": "https://github.com/AHmims/Agence-Urbaine-de-Safi-Youssoufia/issues"
   },
-  "homepage": "https://github.com/AHmims/Agence-Urbaine-de-Safi-Youssoufia#readme"
+  "homepage": "https://github.com/AHmims/Agence-Urbaine-de-Safi-Youssoufia#readme",
+  "dependencies": {},
+  "devDependencies": {}
 }
