@@ -1,10 +1,11 @@
 {
   "name": "agence-urbaine-de-safi-youssoufia",
   "version": "1.0.0",
-  "description": "Agence Urbaine de Safi-Youssoufia. Team => Reda FETTATI , Meryem ELBETTAL, Ali HMIMS, Noaman JAMAL EDDINE",
-  "main": "index.js",
+  "description": "Agence Urbaine de Safi-Youssoufia. Team => Reda FATTATI , Meryem ELBETTAL, Ali HMIMS, Noaman JAMAL EDDINE",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +17,7 @@
     "url": "https://github.com/AHmims/Agence-Urbaine-de-Safi-Youssoufia/issues"
   },
   "homepage": "https://github.com/AHmims/Agence-Urbaine-de-Safi-Youssoufia#readme",
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
