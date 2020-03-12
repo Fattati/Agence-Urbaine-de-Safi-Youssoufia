@@ -27,3 +27,18 @@ class Client {
     }
 }
 // 
+class Service {
+    constructor() {
+        this.id = null;
+        this.nom = nomService;
+        this.description = descriptionService;
+    }
+    // 
+    set id(id) {
+        this.id = id;
+    }
+    // GET ALL DATA
+    getAll() {
+        return [this.id, this.nom, this.description];
+    }
+}
