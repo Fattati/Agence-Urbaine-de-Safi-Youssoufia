@@ -49,7 +49,11 @@ class Question {
         this.text = text;
         this.clientId = clientId;
         this.serviceId = ServiceId;
-        this.dateQuestion = getCurrentDate();
+        this.dateQuestion = null;
+    }
+    // 
+    set dateQuestion(date) {
+        this.dateQuestion = date;
     }
     // 
     getQuestion() {
@@ -62,7 +66,11 @@ class Reponse {
         this.reponse = answer;
         this.clientId = clientId;
         this.serviceId = ServiceId;
-        this.dateReponse = getCurrentDate();
+        this.dateReponse = null;
+    }
+    // 
+    set dateReponse(date) {
+        this.dateReponse = date;
     }
     // 
     getReponse() {
@@ -70,7 +78,14 @@ class Reponse {
     }
 }
 // FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 🙌
-function getCurrentDate() {
+/*function getCurrentDate() {
     let date = new Date();
     return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+}*/
+// EXPORT CLASSES FOR LATER USE
+module.exports = {
+    Client,
+    Service,
+    Question,
+    Reponse
 }
