@@ -1,3 +1,4 @@
+//
 class Client {
     constructor(cin, nom, prenom, dateNaissance, email, numeroTelephone, motDePass) {
         this.cin = cin;
@@ -26,7 +27,7 @@ class Client {
         return returnData;
     }
 }
-// 
+//
 class Service {
     constructor(nomService, descriptionService) {
         this.id = null;
@@ -42,7 +43,7 @@ class Service {
         return [this.id, this.nom, this.description];
     }
 }
-// 
+//
 class Question {
     constructor(text, clientId, ServiceId) {
         this.text = text;
@@ -55,7 +56,20 @@ class Question {
         return [this.text, this.dateQuestion];
     }
 }
-// FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 
+// 
+class Reponse {
+    constructor(answer, clientId, ServiceId) {
+        this.reponse = answer;
+        this.clientId = clientId;
+        this.serviceId = ServiceId;
+        this.dateReponse = getCurrentDate();
+    }
+    // 
+    getReponse() {
+        return [this.reponse, this.dateReponse];
+    }
+}
+// FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 🙌
 function getCurrentDate() {
     let date = new Date();
     return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
