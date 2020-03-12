@@ -1,5 +1,5 @@
 class Client {
-    constructor() {
+    constructor(cin, nom, prenom, dateNaissance, email, numeroTelephone, motDePass) {
         this.cin = cin;
         this.nom = nom;
         this.prenom = prenom;
@@ -27,4 +27,3 @@ class Client {
     }
 }
 // 
-// class
