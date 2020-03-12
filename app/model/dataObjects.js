@@ -43,3 +43,20 @@ class Service {
     }
 }
 // 
+class Question {
+    constructor(text, clientId, ServiceId) {
+        this.text = text;
+        this.clientId = clientId;
+        this.serviceId = ServiceId;
+        this.dateQuestion = getCurrentDate();
+    }
+    // 
+    getQuestion() {
+        return [this.text, this.dateQuestion];
+    }
+}
+// FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 
+function getCurrentDate() {
+    let date = new Date();
+    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+}
