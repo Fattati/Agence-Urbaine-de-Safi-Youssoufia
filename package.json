@@ -19,5 +19,6 @@
   "homepage": "https://github.com/AHmims/Agence-Urbaine-de-Safi-Youssoufia#readme",
   "dependencies": {
     "express": "^4.17.1"
-  }
+  },
+  "devDependencies": {}
 }
