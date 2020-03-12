@@ -1,0 +1,19 @@
+{
+  "name": "agence-urbaine-de-safi-youssoufia",
+  "version": "1.0.0",
+  "description": "Agence Urbaine de Safi-Youssoufia. Team => Reda FETTATI , Meryem ELBETTAL, Ali HMIMS, Noaman JAMAL EDDINE",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AHmims/Agence-Urbaine-de-Safi-Youssoufia.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AHmims/Agence-Urbaine-de-Safi-Youssoufia/issues"
+  },
+  "homepage": "https://github.com/AHmims/Agence-Urbaine-de-Safi-Youssoufia#readme"
+}
