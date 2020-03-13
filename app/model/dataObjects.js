@@ -47,7 +47,7 @@ class Service {
         this.description = descriptionService;
     }
     // 
-    set id(id) {
+    setId(id) {
         this.id = id;
     }
     // GET ALL DATA
@@ -72,7 +72,7 @@ class Question {
         this.dateQuestion = null;
     }
     // 
-    set dateQuestion(date) {
+    setDateQuestion(date) {
         this.dateQuestion = date;
     }
     // 
@@ -96,11 +96,11 @@ class Reponse {
         this.dateReponse = null;
     }
     // 
-    set dateReponse(date) {
+    setDateReponse(date) {
         this.dateReponse = date;
     }
     // 
-    getReponse() {
+    getReponse(type = 'object') {
         let returnData = {
             reponse: this.reponse,
             dateReponse: this.dateReponse
@@ -111,11 +111,7 @@ class Reponse {
         return returnData;
     }
 }
-// FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 🙌
-/*function getCurrentDate() {
-    let date = new Date();
-    return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-}*/
+
 // EXPORT CLASSES FOR LATER USE
 module.exports = {
     Client,
