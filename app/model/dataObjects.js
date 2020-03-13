@@ -11,8 +11,20 @@ class Client {
     }
     // 
     // RETURN ATTRIBUTES DATA AS AN ARRAY
-    getAll() {
-        return [this.cin, this.nom, this.prenom, this.dateN, this.email, this.numeroTel, this.motPass];
+    getAll(type = 'object') {
+        let returnData = {
+            cin: this.cin,
+            nom: this.nom,
+            prenom: this.prenom,
+            dateN: this.dateN,
+            email: this.email,
+            numeroTel: this.numeroTel,
+            motPass: this.motPass
+        }
+        if (type != 'object')
+            returnData = [this.cin, this.nom, this.prenom, this.dateN, this.email, this.numeroTel, this.motPass];
+        // 
+        return returnData;
     }
     //RETUEN CREDENTIELS DATA
     getCred(type = 'object') {
@@ -39,8 +51,16 @@ class Service {
         this.id = id;
     }
     // GET ALL DATA
-    getAll() {
-        return [this.id, this.nom, this.description];
+    getAll(type = 'object') {
+        let returnData = {
+            id: this.id,
+            nom: this.nom,
+            description: this.description
+        }
+        if (type != 'object')
+            returnData = [this.id, this.nom, this.description];
+        // 
+        return returnData;
     }
 }
 //
@@ -56,8 +76,15 @@ class Question {
         this.dateQuestion = date;
     }
     // 
-    getQuestion() {
-        return [this.text, this.dateQuestion];
+    getQuestion(type = 'object') {
+        let returnData = {
+            text: this.text,
+            dateQuestion: this.dateQuestion
+        }
+        if (type != 'object')
+            returnData = [this.text, this.dateQuestion];
+        // 
+        return returnData;
     }
 }
 // 
@@ -74,7 +101,14 @@ class Reponse {
     }
     // 
     getReponse() {
-        return [this.reponse, this.dateReponse];
+        let returnData = {
+            reponse: this.reponse,
+            dateReponse: this.dateReponse
+        }
+        if (type != 'object')
+            returnData = [this.reponse, this.dateReponse];
+        // 
+        return returnData;
     }
 }
 // FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 🙌
