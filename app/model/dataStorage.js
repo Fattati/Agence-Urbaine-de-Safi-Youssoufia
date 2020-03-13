@@ -1,22 +1,120 @@
-// THE TYPE OF THE DATA THAT SHALL BE SAVED IN THE JSON FILES SHOULD BE CLASSES
-// AS FOR ABOVE, RETRIEVED DATA SHALL BE IN AN ARRAY OF CLASSES
-// 
+// TO-DO : ADD A FUNCTION THAT RETURNS ALL QUESTION IN DATE INTERVAL
+//          ADD METHODES TO INCREMENT ID & DATE & Others ...
 const _FS = require('fs-extra');
 const _PATH = require('path');
 const dataObjects = require('./dataObjects');
-// 
+// RETURN AN ARRAY OF CLASSES OF THE JSON DATA FILE
 async function jsonGetAll(className) {
-    let jsonDataObject = JSON.parse(await _FS.readFile(_PATH.join(__dirname, '..', 'data', `${className}.json`)));
-    // ARRAY THAT WILL STORE THE CLASSES
-    let classArray = [];
-    // 
-    jsonDataObject.forEach(element => {
-        classArray.push(jsonToClass(element), className);
+    const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
+    if (pathExists(FILE_PATH)) {
+        let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
+        // ARRAY THAT WILL STORE THE CLASSES
+        let classArray = [];
+        // 
+        // console.log(jsonDataObject);
+        jsonDataObject.forEach(element => {
+            classArray.push(jsonToClass(element), className);
+        });
+        // 
+        return classArray;
+    } else
+        return null;
+}
+//RETURN A CLASS OF THE SERCHED FOR VALUE👀
+function searchBy(className, id) {
+    // A TABLE THAT CONTAINES THE CLASS NAMES ✨
+    const _REFERENCES = [{
+        class: "Client"
+    }, {
+        class: "Service"
+    }, {
+        class: "Other"
+    }];
+    // RECOVER ALL THE DATA FROM THE JSON FILE
+    const _DATA = jsonGetAll(className);
+    // VARIABLE THAT WILL STORE THE SEARCHED FOR VALUE
+    let retValue = null;
+    _REFERENCES.forEach(reference => { //LOOP ON ALL THE REFERENCES
+        if (reference.class == className) { //IF THE SELECTED REFRENCES CLASS == THE PROVIDED CLASSNAME
+            _DATA.forEach(data => { //LOOP ON ALL THE JSON FILE DATA
+                if (reference.class != "Other") { //THE 'OTHER' MEANS THE CLASSES HAVE MORE THAN 1 ID 
+                    if (data.getId() == id)
+                        retValue = data;
+                } else {
+                    let values = data.getId();
+                    if (values[0] == id[0] && values[1] == id[1]) //IF CLIENT ID & SERVICE ID MATCHES THE PROVIDED VALUES
+                        retValue = data;
+                }
+            });
+        }
     });
     // 
-    return classArray;
+    return retValue;
 }
-jsonGetAll("Service");
+// SAVE DATA INTO A JSON FILE
+async function addToJson(className, data) {
+    const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
+
+    // SEE IF THE FILE EXISTS, IF NOT MAKE IT
+    if (!await _FS.pathExists(FILE_PATH))
+        await _FS.createFile(FILE_PATH);
+    // FILL THE JSON WITH "[]" IF EMPTY
+    let fileContent = await _FS.readFile(FILE_PATH, 'utf8');
+    if (fileContent.length == 0)
+        await _FS.writeFile(FILE_PATH, '[]');
+
+    // RETURN VALUE
+    let succes = true;
+    try {
+        // IN ORDER TO APPEND TO A JSON FILE I NEED TO READ THE EXISTING FILE
+        let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
+        //THE ADD THE WENTED DATA TO IT
+        jsonDataObject.push(data.getAll());
+        //AFTER THAT I RESAVE THE JSON FILE
+        await _FS.writeJSON(FILE_PATH, jsonDataObject);
+    } catch (err) {
+        succes = false;
+    }
+    // 
+    return succes;
+}
+// FUNCTION TO DELETE SOMETHING FROM THE JSON FILE
+function removeFromJson(className, deleteValue) {
+    const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
+    // FEEDBACK A RETOURNER A L'UTILISATEUR
+    let returnMsg = '';
+    // 
+    if (await _FS.pathExists(FILE_PATH)) {
+        try {
+            let existe = false;
+            // 
+            let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
+            // 
+            for (let i = 0; i < jsonDataObject.length; i++) {
+                let classElement = jsonToClass(jsonDataObject[i], className);
+                // 
+                if (classElement.getId() == deleteValue) {
+                    existe = true;
+                    i = jsonDataObject.length;
+                    jsonDataObject.splice(i, 1);
+                }
+            }
+            // 
+            if (existe)
+                returnMsg = 'Element supprimer avec succes';
+            else
+                returnMsg = "Element n'existe pas !";
+            // 
+            await _FS.writeJSON(FILE_PATH, jsonDataObject);
+        } catch (err) {
+            returnMsg = 'Erreur';
+        }
+
+    } else
+        returnMsg = "Fichier n'existe pas !";
+    // 
+    return returnMsg;
+}
 // FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 🙌
 function getCurrentDate() {
     let date = new Date();
@@ -43,4 +141,8 @@ function jsonToClass(objectData, className) {
     }
     // 
     return retClass;
+}
+// MAKE SURE THE DESIRED DIR EXISTS | RETURN TRUE OR FALSE
+async function pathExists(path) {
+    return await _FS.pathExists(path);
 }
