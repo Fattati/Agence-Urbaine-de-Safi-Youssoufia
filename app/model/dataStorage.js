@@ -1,7 +1,5 @@
-// THE TYPE OF THE DATA THAT SHALL BE SAVED IN THE JSON FILES SHOULD BE CLASSES
-// AS FOR ABOVE, RETRIEVED DATA SHALL BE IN AN ARRAY OF CLASSES
-// 
 // TO-DO : ADD A FUNCTION THAT RETURNS ALL QUESTION IN DATE INTERVAL
+//          ADD METHODES TO INCREMENT ID & DATE & Others ...
 const _FS = require('fs-extra');
 const _PATH = require('path');
 const dataObjects = require('./dataObjects');
@@ -54,14 +52,13 @@ function searchBy(className, id) {
     return retValue;
 }
 // SAVE DATA INTO A JSON FILE
-async function jsonSave(className, data) {
+async function addToJson(className, data) {
     const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
-
 
     // SEE IF THE FILE EXISTS, IF NOT MAKE IT
     if (!await _FS.pathExists(FILE_PATH))
         await _FS.createFile(FILE_PATH);
-    // FILL THE JSON FILL IF EMPTY
+    // FILL THE JSON WITH "[]" IF EMPTY
     let fileContent = await _FS.readFile(FILE_PATH, 'utf8');
     if (fileContent.length == 0)
         await _FS.writeFile(FILE_PATH, '[]');
@@ -76,11 +73,47 @@ async function jsonSave(className, data) {
         //AFTER THAT I RESAVE THE JSON FILE
         await _FS.writeJSON(FILE_PATH, jsonDataObject);
     } catch (err) {
-        console.log(err);
         succes = false;
     }
     // 
     return succes;
+}
+// FUNCTION TO DELETE SOMETHING FROM THE JSON FILE
+function removeFromJson(className, deleteValue) {
+    const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
+    // FEEDBACK A RETOURNER A L'UTILISATEUR
+    let returnMsg = '';
+    // 
+    if (await _FS.pathExists(FILE_PATH)) {
+        try {
+            let existe = false;
+            // 
+            let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
+            // 
+            for (let i = 0; i < jsonDataObject.length; i++) {
+                let classElement = jsonToClass(jsonDataObject[i], className);
+                // 
+                if (classElement.getId() == deleteValue) {
+                    existe = true;
+                    i = jsonDataObject.length;
+                    jsonDataObject.splice(i, 1);
+                }
+            }
+            // 
+            if (existe)
+                returnMsg = 'Element supprimer avec succes';
+            else
+                returnMsg = "Element n'existe pas !";
+            // 
+            await _FS.writeJSON(FILE_PATH, jsonDataObject);
+        } catch (err) {
+            returnMsg = 'Erreur';
+        }
+
+    } else
+        returnMsg = "Fichier n'existe pas !";
+    // 
+    return returnMsg;
 }
 // FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 🙌
 function getCurrentDate() {
@@ -113,10 +146,3 @@ function jsonToClass(objectData, className) {
 async function pathExists(path) {
     return await _FS.pathExists(path);
 }
-// A FUNCTION TO CHECK WETHER THE FILE IS EMPTY, IF TRUE FILL IT WITH []
-async function initJsonFile(filePath) {
-    let fileContent = await _FS.readFile(filePath, 'utf8');
-    if (fileContent.length == 0)
-        _FS.writeJSON(filePath, []);
-}
-// 
