@@ -76,6 +76,19 @@ class Question {
         this.dateQuestion = date;
     }
     // 
+    getAll(type = 'object') {
+        let returnData = {
+            text: this.text,
+            clientId: this.clientId,
+            serviceId: this.serviceId,
+            dateQuestion: this.dateQuestion
+        }
+        if (type != 'object')
+            returnData = [this.text, this.clientId, this.serviceId, this.dateQuestion];
+        // 
+        return returnData;
+    }
+    // 
     getQuestion(type = 'object') {
         let returnData = {
             text: this.text,
