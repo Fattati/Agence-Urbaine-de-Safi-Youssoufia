@@ -38,6 +38,10 @@ class Client {
         // 
         return returnData;
     }
+    // RETURN THE CLASSES UNIQUE IDENTIFIER
+    getId() {
+        return this.cin;
+    }
 }
 //
 class Service {
@@ -61,6 +65,10 @@ class Service {
             returnData = [this.id, this.nom, this.description];
         // 
         return returnData;
+    }
+    // RETURN THE CLASSES UNIQUE IDENTIFIER
+    getId() {
+        return this.id;
     }
 }
 //
@@ -99,6 +107,10 @@ class Question {
         // 
         return returnData;
     }
+    // RETURN THE CLASSES UNIQUE IDENTIFIER
+    getId() {
+        return [this.clientId, this.serviceId];
+    }
 }
 // 
 class Reponse {
@@ -113,6 +125,19 @@ class Reponse {
         this.dateReponse = date;
     }
     // 
+    getAll(type = 'object') {
+        let returnData = {
+            reponse: this.reponse,
+            clientId: this.clientId,
+            serviceId: this.serviceId,
+            dateReponse: this.dateReponse
+        }
+        if (type != 'object')
+            returnData = [this.reponse, this.clientId, this.serviceId, this.dateReponse];
+        // 
+        return returnData;
+    }
+    // 
     getReponse(type = 'object') {
         let returnData = {
             reponse: this.reponse,
@@ -122,6 +147,10 @@ class Reponse {
             returnData = [this.reponse, this.dateReponse];
         // 
         return returnData;
+    }
+    // RETURN THE CLASSES UNIQUE IDENTIFIER
+    getId() {
+        return [this.clientId, this.serviceId];
     }
 }
 
