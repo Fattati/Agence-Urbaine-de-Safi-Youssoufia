@@ -45,8 +45,8 @@ class Client {
 }
 //
 class Service {
-    constructor(nomService, descriptionService) {
-        this.id = null;
+    constructor(id = null, nomService, descriptionService) {
+        this.id = id;
         this.nom = nomService;
         this.description = descriptionService;
     }
@@ -73,11 +73,11 @@ class Service {
 }
 //
 class Question {
-    constructor(text, clientId, ServiceId) {
+    constructor(text, clientId, ServiceId, dateQuestion = null) {
         this.text = text;
         this.clientId = clientId;
         this.serviceId = ServiceId;
-        this.dateQuestion = null;
+        this.dateQuestion = dateQuestion;
     }
     // 
     setDateQuestion(date) {
@@ -114,11 +114,11 @@ class Question {
 }
 // 
 class Reponse {
-    constructor(answer, clientId, ServiceId) {
+    constructor(answer, clientId, ServiceId, dateReponse = null) {
         this.reponse = answer;
         this.clientId = clientId;
         this.serviceId = ServiceId;
-        this.dateReponse = null;
+        this.dateReponse = dateReponse;
     }
     // 
     setDateReponse(date) {

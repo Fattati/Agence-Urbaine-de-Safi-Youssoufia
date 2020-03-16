@@ -3,6 +3,14 @@
 const _FS = require('fs-extra');
 const _PATH = require('path');
 const dataObjects = require('./dataObjects');
+// A TABLE THAT CONTAINES THE CLASS NAMES ✨
+const _REFERENCES = [{
+    class: "Client"
+}, {
+    class: "Service"
+}, {
+    class: "Other"
+}];
 // RETURN AN ARRAY OF CLASSES OF THE JSON DATA FILE
 async function jsonGetAll(className) {
     const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
@@ -22,14 +30,6 @@ async function jsonGetAll(className) {
 }
 //RETURN A CLASS OF THE SERCHED FOR VALUE👀
 function searchBy(className, id) {
-    // A TABLE THAT CONTAINES THE CLASS NAMES ✨
-    const _REFERENCES = [{
-        class: "Client"
-    }, {
-        class: "Service"
-    }, {
-        class: "Other"
-    }];
     // RECOVER ALL THE DATA FROM THE JSON FILE
     const _DATA = jsonGetAll(className);
     // VARIABLE THAT WILL STORE THE SEARCHED FOR VALUE
@@ -79,26 +79,38 @@ async function addToJson(className, data) {
     return succes;
 }
 // FUNCTION TO DELETE SOMETHING FROM THE JSON FILE
-function removeFromJson(className, deleteValue) {
+async function removeFromJson(className, deleteValue) {
     const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
     // FEEDBACK A RETOURNER A L'UTILISATEUR
     let returnMsg = '';
     // 
-    if (await _FS.pathExists(FILE_PATH)) {
+    if (await pathExists(FILE_PATH)) {
         try {
             let existe = false;
             // 
             let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
             // 
-            for (let i = 0; i < jsonDataObject.length; i++) {
-                let classElement = jsonToClass(jsonDataObject[i], className);
-                // 
-                if (classElement.getId() == deleteValue) {
-                    existe = true;
-                    i = jsonDataObject.length;
-                    jsonDataObject.splice(i, 1);
+            // console.log(jsonDataObject);
+            _REFERENCES.forEach(ref => {
+                for (let i = 0; i < jsonDataObject.length; i++) {
+                    let classElement = jsonToClass(jsonDataObject[i], className);
+                    // 
+                    if (ref.class != 'Other') {
+                        if (classElement.getId() == deleteValue) {
+                            existe = true;
+                            jsonDataObject.splice(i, 1);
+                            break;
+                        }
+                    } else {
+                        let arrVals = classElement.getId();
+                        if (arrVals[0] == deleteValue[0] && arrVals[1] == deleteValue[1]) {
+                            existe = true;
+                            jsonDataObject.splice(i, 1);
+                            break;
+                        }
+                    }
                 }
-            }
+            });
             // 
             if (existe)
                 returnMsg = 'Element supprimer avec succes';
@@ -113,6 +125,7 @@ function removeFromJson(className, deleteValue) {
     } else
         returnMsg = "Fichier n'existe pas !";
     // 
+    // console.log(returnMsg);
     return returnMsg;
 }
 // FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 🙌
@@ -128,13 +141,13 @@ function jsonToClass(objectData, className) {
             retClass = new dataObjects.Client(objectData.cin, objectData.nom, objectData.prenom, objectData.dateN, objectData.email, objectData.numeroTel, objectData.motPass);
             break;
         case 'Service':
-            retClass = new dataObjects.Service(objectData.nom, objectData.description);
+            retClass = new dataObjects.Service(objectData.id, objectData.nom, objectData.description);
             break;
         case 'Question':
-            retClass = new dataObjects.Question(objectData.text, objectData.clientId, objectData.serviceId);
+            retClass = new dataObjects.Question(objectData.text, objectData.clientId, objectData.serviceId, objectData.dateQuestion);
             break;
         case 'Reponse':
-            retClass = new dataObjects.Reponse(objectData.reponse, objectData.clientId, objectData.serviceId);
+            retClass = new dataObjects.Reponse(objectData.reponse, objectData.clientId, objectData.serviceId, objectData.dateReponse);
             break;
         default:
             retClass = null;
@@ -146,3 +159,4 @@ function jsonToClass(objectData, className) {
 async function pathExists(path) {
     return await _FS.pathExists(path);
 }
+// 
