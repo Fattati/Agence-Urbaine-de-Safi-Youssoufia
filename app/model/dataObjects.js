@@ -45,7 +45,7 @@ class Client {
 }
 //
 class Service {
-    constructor(id = null, nomService, descriptionService) {
+    constructor(nomService, descriptionService, id = null) {
         this.id = id;
         this.nom = nomService;
         this.description = descriptionService;

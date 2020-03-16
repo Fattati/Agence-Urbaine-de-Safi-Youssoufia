@@ -67,7 +67,12 @@ async function addToJson(className, data) {
     let succes = true;
     try {
         // IN ORDER TO APPEND TO A JSON FILE I NEED TO READ THE EXISTING FILE
-        let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
+        // let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
+        let jsonDataObject = await _FS.readJSON(FILE_PATH);
+        // APPEND A DYNAMIC ID TO THE OBJECT
+        data.id = `SR2020-${jsonDataObject.length + 1}`;
+        data = jsonToClass(data, className);
+        //     
         //THE ADD THE WENTED DATA TO IT
         jsonDataObject.push(data.getAll());
         //AFTER THAT I RESAVE THE JSON FILE
@@ -76,6 +81,7 @@ async function addToJson(className, data) {
         succes = false;
     }
     // 
+    // console.log(succes);
     return succes;
 }
 // FUNCTION TO DELETE SOMETHING FROM THE JSON FILE
@@ -141,7 +147,7 @@ function jsonToClass(objectData, className) {
             retClass = new dataObjects.Client(objectData.cin, objectData.nom, objectData.prenom, objectData.dateN, objectData.email, objectData.numeroTel, objectData.motPass);
             break;
         case 'Service':
-            retClass = new dataObjects.Service(objectData.id, objectData.nom, objectData.description);
+            retClass = new dataObjects.Service(objectData.nom, objectData.description, objectData.id);
             break;
         case 'Question':
             retClass = new dataObjects.Question(objectData.text, objectData.clientId, objectData.serviceId, objectData.dateQuestion);
@@ -160,3 +166,9 @@ async function pathExists(path) {
     return await _FS.pathExists(path);
 }
 // 
+module.exports = {
+    jsonGetAll,
+    searchBy,
+    addToJson,
+    removeFromJson
+}
