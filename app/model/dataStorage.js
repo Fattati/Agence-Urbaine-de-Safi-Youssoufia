@@ -14,14 +14,14 @@ const _REFERENCES = [{
 // RETURN AN ARRAY OF CLASSES OF THE JSON DATA FILE
 async function jsonGetAll(className) {
     const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
-    if (pathExists(FILE_PATH)) {
+    if (await pathExists(FILE_PATH)) {
         let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
         // ARRAY THAT WILL STORE THE CLASSES
         let classArray = [];
         // 
         // console.log(jsonDataObject);
         jsonDataObject.forEach(element => {
-            classArray.push(jsonToClass(element), className);
+            classArray.push(jsonToClass(element, className));
         });
         // 
         return classArray;
@@ -29,9 +29,9 @@ async function jsonGetAll(className) {
         return null;
 }
 //RETURN A CLASS OF THE SERCHED FOR VALUE👀
-function searchBy(className, id) {
+async function searchBy(className, id) {
     // RECOVER ALL THE DATA FROM THE JSON FILE
-    const _DATA = jsonGetAll(className);
+    const _DATA = await jsonGetAll(className);
     // VARIABLE THAT WILL STORE THE SEARCHED FOR VALUE
     let retValue = null;
     _REFERENCES.forEach(reference => { //LOOP ON ALL THE REFERENCES
