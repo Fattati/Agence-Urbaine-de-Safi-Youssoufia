@@ -1,3 +1,6 @@
+@import url('https://fonts.google.com/specimen/Inter');
+* { font-family: 'Inter' }
+
 .register{
     background-image: url("../img/3.jpg");
     background-size: cover;
@@ -9,17 +12,17 @@
     text-align: center;
     color: #fff;
     margin-top: 4%;
-}
-.register-left input{
-    border: none;
-    padding: 2%;
-    width: 60%;
-    background: #ffffff;
-    font-weight: bold;
-    color: #383d41;
-    margin-top: 10%;
-    margin-bottom: 3%;
-    cursor: pointer;
+    & input{
+        border: none;
+        padding: 2%;
+        width: 60%;
+        background: #2893DA;
+        font-weight: bold;
+        color: #ffffff;
+        margin-top: 10%;
+        margin-bottom: 3%;
+        cursor: pointer;
+    }
 }
 .register-right{
     background: #ffffff;
