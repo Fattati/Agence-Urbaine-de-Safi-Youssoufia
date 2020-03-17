@@ -22,14 +22,31 @@
             // }, (response) => {
             //     console.log(response);
             // });
-            $.post("/jsonGetById", {
+
+            // $.post("/jsonGetById", {
+            //     class: "Service",
+            //     id: "SR2020-4"
+            // }, (response) => {
+            //     if (response != "null")
+            //         console.log(JSON.parse(response));
+            //     else
+            //         console.log("Element n'existe pas");
+            // });
+
+            // $.post("/jsonGetAll", {
+            //     class: "Service"
+            // }, (response) => {
+            //     if (response != "null")
+            //         console.log(JSON.parse(response));
+            //     else
+            //         console.log("Element n'existe pas");
+            // });
+
+            $.post("/jsonRemoveById", {
                 class: "Service",
-                id: "SR2020-4"
+                id: "SR2020-5"
             }, (response) => {
-                if (response != "null")
-                    console.log(JSON.parse(response));
-                else
-                    console.log("Element n'existe pas");
+                console.log(response);
             });
         });
     </script>

@@ -89,34 +89,32 @@ async function removeFromJson(className, id) {
     const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
     // FEEDBACK A RETOURNER A L'UTILISATEUR
     let returnMsg = '';
+    console.log(id);
     // 
     if (await pathExists(FILE_PATH)) {
         try {
             let existe = false;
-            // 
             let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
             // 
-            // console.log(jsonDataObject);
-            _REFERENCES.forEach(ref => {
-                for (let i = 0; i < jsonDataObject.length; i++) {
-                    let classElement = jsonToClass(jsonDataObject[i], className);
-                    // 
-                    if (ref.class != 'Other') {
-                        if (classElement.getId() == id) {
-                            existe = true;
-                            jsonDataObject.splice(i, 1);
-                            break;
-                        }
-                    } else {
-                        let arrVals = classElement.getId();
-                        if (arrVals[0] == id[0] && arrVals[1] == id[1]) {
-                            existe = true;
-                            jsonDataObject.splice(i, 1);
-                            break;
-                        }
+            for (let i = 0; i < jsonDataObject.length; i++) {
+                let classElement = jsonToClass(jsonDataObject[i], className);
+                // 
+                if (className != 'Other') {
+                    if (classElement.getId() == id) {
+                        existe = true;
+                        jsonDataObject.splice(i, 1);
+                        break;
+                    }
+                } else {
+                    let arrVals = classElement.getId();
+                    if (arrVals[0] == id[0] && arrVals[1] == id[1]) {
+                        existe = true;
+                        jsonDataObject.splice(i, 1);
+                        break;
                     }
                 }
-            });
+            }
+            // });
             // 
             if (existe)
                 returnMsg = 'Element supprimer avec succes';
