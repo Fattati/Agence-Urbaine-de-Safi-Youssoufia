@@ -21,9 +21,24 @@ _APP.get('/dev', (req, res) => {
     res.sendFile(_PATH.join(__dirname, 'app/html/backEnd_Testing.html'));
 });
 // LISTEN FOR REQUESTES FROM THE CLIENT
+// REQUEST TO SAVE THE GIVEN DATA INTO THE JSON FILE
 _APP.post('/jsonSave', async function (req, res) {
-    // console.log(req.body.data);
-    let result = await _FUNCS.addToJson(req.body.type, req.body.data);
+    let result = await _FUNCS.addToJson(req.body.class, req.body.data);
+    res.end(result.toString());
+});
+//REQUEST TO GET ALL DATA OF A CLASS
+_APP.post('/jsonGetAll', async function (req, res) {
+    let result = await _FUNCS.jsonGetAll(req.body.class);
+    res.end(JSON.stringify(result));
+});
+// REQUEST TO GET A SPECIFIC ENTRY FROM A CLASS BY ID
+_APP.post('/jsonGetById', async function (req, res) {
+    let result = await _FUNCS.searchBy(req.body.class, req.body.id);
+    res.end(JSON.stringify(result));
+});
+// REQUEST TO DELETE A SPECIFIC ENTRY FROM A CLASS BY ID
+_APP.post('/jsonRemoveById', async function (req, res) {
+    let result = await _FUNCS.removeFromJson(req.body.class, req.body.id);
     res.end(result.toString());
 });
 // GIVE THE LOCAL SERER TO ACCESS /APP FOLDER

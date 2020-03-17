@@ -85,7 +85,7 @@ async function addToJson(className, data) {
     return succes;
 }
 // FUNCTION TO DELETE SOMETHING FROM THE JSON FILE
-async function removeFromJson(className, deleteValue) {
+async function removeFromJson(className, id) {
     const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
     // FEEDBACK A RETOURNER A L'UTILISATEUR
     let returnMsg = '';
@@ -102,14 +102,14 @@ async function removeFromJson(className, deleteValue) {
                     let classElement = jsonToClass(jsonDataObject[i], className);
                     // 
                     if (ref.class != 'Other') {
-                        if (classElement.getId() == deleteValue) {
+                        if (classElement.getId() == id) {
                             existe = true;
                             jsonDataObject.splice(i, 1);
                             break;
                         }
                     } else {
                         let arrVals = classElement.getId();
-                        if (arrVals[0] == deleteValue[0] && arrVals[1] == deleteValue[1]) {
+                        if (arrVals[0] == id[0] && arrVals[1] == id[1]) {
                             existe = true;
                             jsonDataObject.splice(i, 1);
                             break;

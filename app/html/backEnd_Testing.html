@@ -13,14 +13,23 @@
 <body>
     <script>
         $(document).ready(() => {
-            $.post("/jsonSave", {
-                type: "Service",
-                data: {
-                    nom: "hehe",
-                    description: "wtf is this ?"
-                }
+            // $.post("/jsonSave", {
+            //     class: "Service",
+            //     data: {
+            //         nom: "hehe",
+            //         description: "wtf is this ?"
+            //     }
+            // }, (response) => {
+            //     console.log(response);
+            // });
+            $.post("/jsonGetById", {
+                class: "Service",
+                id: "SR2020-4"
             }, (response) => {
-                console.log(response);
+                if (response != "null")
+                    console.log(JSON.parse(response));
+                else
+                    console.log("Element n'existe pas");
             });
         });
     </script>
