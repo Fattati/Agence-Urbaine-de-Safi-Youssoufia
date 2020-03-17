@@ -1,5 +1,6 @@
 // TO-DO : ADD A FUNCTION THAT RETURNS ALL QUESTION IN DATE INTERVAL
 //          ADD METHODES TO INCREMENT ID & DATE & Others ...
+//          ADD A LOGING FUNCTION TO KEEP TRACK OF CHANGES
 const _FS = require('fs-extra');
 const _PATH = require('path');
 const dataObjects = require('./dataObjects');
@@ -34,20 +35,20 @@ async function searchBy(className, id) {
     const _DATA = await jsonGetAll(className);
     // VARIABLE THAT WILL STORE THE SEARCHED FOR VALUE
     let retValue = null;
-    _REFERENCES.forEach(reference => { //LOOP ON ALL THE REFERENCES
-        if (reference.class == className) { //IF THE SELECTED REFRENCES CLASS == THE PROVIDED CLASSNAME
-            _DATA.forEach(data => { //LOOP ON ALL THE JSON FILE DATA
-                if (reference.class != "Other") { //THE 'OTHER' MEANS THE CLASSES HAVE MORE THAN 1 ID 
-                    if (data.getId() == id)
-                        retValue = data;
-                } else {
-                    let values = data.getId();
-                    if (values[0] == id[0] && values[1] == id[1]) //IF CLIENT ID & SERVICE ID MATCHES THE PROVIDED VALUES
-                        retValue = data;
-                }
-            });
+    // _REFERENCES.forEach(reference => { //LOOP ON ALL THE REFERENCES
+    // if (reference.class == className) { //IF THE SELECTED REFRENCES CLASS == THE PROVIDED CLASSNAME
+    _DATA.forEach(data => { //LOOP ON ALL THE JSON FILE DATA
+        if (className != "Reponse" && className != "Question") {
+            if (data.getId() == id)
+                retValue = data;
+        } else {
+            let values = data.getId();
+            if (values[0] == id[0] && values[1] == id[1]) //IF CLIENT ID & SERVICE ID MATCHES THE PROVIDED VALUES
+                retValue = data;
         }
     });
+    // }
+    // });
     // 
     return retValue;
 }
@@ -69,8 +70,18 @@ async function addToJson(className, data) {
         // IN ORDER TO APPEND TO A JSON FILE I NEED TO READ THE EXISTING FILE
         // let jsonDataObject = JSON.parse(await _FS.readFile(FILE_PATH));
         let jsonDataObject = await _FS.readJSON(FILE_PATH);
-        // APPEND A DYNAMIC ID TO THE OBJECT
-        data.id = `SR2020-${jsonDataObject.length + 1}`;
+        // 
+        if (className == "Service") {
+            // APPEND A DYNAMIC ID TO THE OBJECT
+            data.id = `SR2020-${jsonDataObject.length + 1}`;
+        } else if (className == "Question") {
+            // APPEND CURRENT DATE TO THE OBJECT
+            data.dateQuestion = getCurrentDate();
+        } else if (className == "Reponse") {
+            // APPEND CURRENT DATE TO THE OBJECT
+            data.dateReponse = getCurrentDate();
+        }
+        // 
         data = jsonToClass(data, className);
         //     
         //THE ADD THE WENTED DATA TO IT
@@ -89,7 +100,6 @@ async function removeFromJson(className, id) {
     const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
     // FEEDBACK A RETOURNER A L'UTILISATEUR
     let returnMsg = '';
-    console.log(id);
     // 
     if (await pathExists(FILE_PATH)) {
         try {
@@ -99,7 +109,7 @@ async function removeFromJson(className, id) {
             for (let i = 0; i < jsonDataObject.length; i++) {
                 let classElement = jsonToClass(jsonDataObject[i], className);
                 // 
-                if (className != 'Other') {
+                if (className != 'Question' && className != 'Reponse') {
                     if (classElement.getId() == id) {
                         existe = true;
                         jsonDataObject.splice(i, 1);
