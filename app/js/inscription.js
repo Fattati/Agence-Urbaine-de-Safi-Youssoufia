@@ -138,3 +138,40 @@ function confirmationMotDePass()
         return valid;
     }
 }
+
+
+
+function validationConnectionEmail()
+{
+    var valid;
+    var element=$("#ConnectionEmail");
+    var reg=new RegExp("^[a-zA-Z0-9._-]{5,}\@[a-z]{5,7}\.[a-z]{2,3}$");
+    if(reg.test(element.val()))
+    {
+        valid=true;
+        element.css("border-color", "#2893DA");
+    }
+    else
+    {
+        valid=false;
+        element.css("border-color", "red");
+    }
+    return valid;
+}
+function validationConnectionMotDePass()
+{
+    var valid;
+    var element=$("#ConnectionMotDePass");
+    var reg=new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    if(reg.test(element.val()))
+    {
+        valid=true;
+        element.css("border-color", "#2893DA");
+    }
+    else
+    {
+        valid=false;
+        element.css("border-color", "red");
+    }
+    return valid;
+}

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="css/inscription.css">
-    <!-- <link rel="stylesheet" href="https://fonts.google.com/specimen/Inter"> -->
     <title>inscription</title>
   </head>
   <body>
@@ -74,16 +73,16 @@
                             <div class="row register-form">
                                 <div class="col-md-12">
                                     <div class="form-group" style="visibility: hidden">
-                                        <input type="email" class="form-control" placeholder="Email *" value="" />
+                                        <input type="email" class="form-control"/>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control" placeholder="Email *" value="" />
+                                        <input type="email" class="form-control" placeholder="Email *" id="ConnectionEmail" oninput="validationConnectionEmail()"/>
                                     </div>
                                     <div class="form-group" style="visibility: hidden">
-                                        <input type="email" class="form-control" placeholder="Email *" value="" />
+                                        <input type="email" class="form-control" />
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Mot de Passe *" value="" />
+                                        <input type="password" class="form-control" placeholder="Mot de Passe *" id="ConnectionMotDePass" oninput="validationConnectionMotDePass()"/>
                                     </div>
                                     <input type="submit" class="btnRegister"  value="Connection"/>
                                 </div>
