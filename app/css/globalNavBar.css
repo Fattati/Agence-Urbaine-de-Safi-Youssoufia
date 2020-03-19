@@ -1,0 +1,120 @@
+@import url('https://css.gg/c');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+/*  */
+body,
+html {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/*  */
+#navbarCont {
+    width: 100vw;
+    height: 75px;
+    /*  */
+    /* background-color: red; */
+    border-bottom: 1px solid #f1f1f1;
+    font-family: 'Inter', sans-serif;
+}
+
+/* DESKTOPE */
+#nb-lg {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#nb-logo {
+    display: flex;
+    align-items: center;
+}
+
+#nb-logo span {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+#nb-links-cont a {
+    text-decoration: none;
+    margin-right: 35px;
+    color: #00000080;
+    text-transform: capitalize;
+    font-size: 23px;
+}
+
+/* MOBILE */
+#nb-md {
+    display: none;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+#nb-md a {
+    flex: 1;
+    text-decoration: none;
+}
+
+.element-cont {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    /* border-radius: 10px; */
+    transition: 200ms background-color ease-in-out;
+}
+
+.element-cont:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.element-cont:last-child {
+    border: none;
+}
+
+.sub-cont {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*  */
+    box-sizing: border-box;
+    border-right: 1px solid black;
+}
+
+
+.sub-cont span {
+    margin-top: 5px;
+    font-family: 'Inter', sans-serif;
+    color: black;
+}
+
+.sub-cont i {
+    color: black;
+}
+
+/*  */
+@media screen and (max-width:700px) {
+    #nb-lg {
+        display: none;
+    }
+
+    #nb-md {
+        display: flex;
+    }
+
+    /*  */
+    /*  */
+    #navbarCont {
+        position: fixed;
+        border: none;
+        border-top: 1px solid #f1f1f1;
+        bottom: 0;
+    }
+}

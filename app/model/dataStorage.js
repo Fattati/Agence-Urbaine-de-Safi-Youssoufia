@@ -4,14 +4,14 @@
 const _FS = require('fs-extra');
 const _PATH = require('path');
 const dataObjects = require('./dataObjects');
-// A TABLE THAT CONTAINES THE CLASS NAMES ✨
-const _REFERENCES = [{
-    class: "Client"
-}, {
-    class: "Service"
-}, {
-    class: "Other"
-}];
+// // A TABLE THAT CONTAINES THE CLASS NAMES ✨
+// const _REFERENCES = [{
+//     class: "Client"
+// }, {
+//     class: "Service"
+// }, {
+//     class: "Other"
+// }];
 // RETURN AN ARRAY OF CLASSES OF THE JSON DATA FILE
 async function jsonGetAll(className) {
     const FILE_PATH = _PATH.join(__dirname, '..', 'data', `${className}.json`);
