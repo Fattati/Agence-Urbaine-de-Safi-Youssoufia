@@ -83,6 +83,10 @@
             //     else
             //         console.log("Element n'existe pas");
             // });
+
+            $.post("/getQuestions", {}, (response) => {
+                console.log(JSON.parse(response));
+            });
         });
     </script>
 </body>

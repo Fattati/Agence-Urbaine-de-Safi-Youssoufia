@@ -17,6 +17,9 @@ _APP.get('/', (req, res) => {
 _APP.get('/inscription', (req, res) => {
     res.sendFile(_PATH.join(__dirname, 'app/inscription.html'));
 });
+_APP.get('/renseignement', (req, res) => {
+    res.sendFile(_PATH.join(__dirname, 'app/html/renseignement.html'));
+});
 _APP.get('/dev', (req, res) => {
     res.sendFile(_PATH.join(__dirname, 'app/html/backEnd_Testing.html'));
 });
@@ -40,6 +43,29 @@ _APP.post('/jsonGetById', async function (req, res) {
 _APP.post('/jsonRemoveById', async function (req, res) {
     let result = await _FUNCS.removeFromJson(req.body.class, req.body.id);
     res.end(result.toString());
+});
+// GET QUESTIONS WITH THE LINKED DATA
+_APP.post('/getQuestions', async function (req, res) {
+    let questions = await _FUNCS.jsonGetAll("Question");
+    // 
+    let results = [];
+    // 
+    for (let i = 0; i < questions.length; i++) {
+        let question = questions[i].getAll();
+        // console.log(question);
+        let client = await _FUNCS.searchBy("Client", question.clientId);
+        let service = await _FUNCS.searchBy("Service", question.serviceId);
+        // 
+        results.push({
+            index: i,
+            txt: question.text,
+            client: `${client.nom} ${client.prenom}`,
+            service: service.nom,
+            date: question.dateQuestion
+        });
+    }
+    // 
+    res.end(JSON.stringify(results));
 });
 // GIVE THE LOCAL SERER TO ACCESS /APP FOLDER
 _APP.use('/', _EXPRESS.static(_PATH.join(__dirname, 'app')));
