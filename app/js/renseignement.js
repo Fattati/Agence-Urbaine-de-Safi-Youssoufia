@@ -1,9 +1,34 @@
 $(document).ready(() => {
     $.post("/getQuestions", {}, (response) => {
         const questions = JSON.parse(response);
-        // 
+        // FILL QUESTION FROM THE JSON FILE
         questions.forEach(element => {
             cardMaker(element);
+        });
+        // 
+    });
+    // WHEN CLICKING THE ADD BUTTONS SHOW THE FORM TO ADD A QUESTION
+    $('#add-question').click(showQuestionForm);
+    //
+    $('#q-form-btn-anuller').click(hideQuestionForm);
+    $('#q-form-cont').click((e) => {
+        if (e.target == $('#q-form-cont')[0])
+            hideQuestionForm();
+    });
+    // 
+    // 
+    $('#q-form-btn-postuler').click(() => {
+        // 
+        // Assuming validation was mad
+        $.post('/jsonSave', {
+            class: "Question",
+            data: {
+                text: $('#q-form-txtarea').text(),
+                clientId: "JKQSHD876",
+                serviceId: $("#q-form-services").children("option:selected").val()
+            }
+        }, (response) => {
+            console.log(response);
         });
     });
 });
@@ -57,7 +82,9 @@ function cardMaker(question) {
     cont.appendChild(cardTop);
     cont.appendChild(cardBot);
     // 
-    document.getElementById('b-content').appendChild(cont);
+    // document.getElementById('b-content').appendChild(cont);
+    document.getElementById('b-content').insertBefore(cont, document.getElementById('add-question'));
+
 }
 // 
 function makeEelement(elem, elemClass) {
@@ -65,4 +92,16 @@ function makeEelement(elem, elemClass) {
     item.setAttribute('class', elemClass);
     // 
     return item;
+}
+// 
+function showQuestionForm() {
+    $('#q-form-cont').css({
+        'display': "flex"
+    });
+}
+
+function hideQuestionForm() {
+    $('#q-form-cont').css({
+        'display': "none"
+    });
 }

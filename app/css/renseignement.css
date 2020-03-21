@@ -4,12 +4,17 @@ body {
 
 /*  */
 #body {
+    height: 100%;
+    /*  */
     width: 100%;
     display: flex;
     flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
     font-family: 'Inter', sans-serif;
+    /*  */
+    position: relative;
+    padding-bottom: 76px;
 }
 
 /*  */
@@ -79,8 +84,23 @@ body {
     /*  */
     box-sizing: border-box;
     /* padding: 10px; */
-    transition: 100ms all ease-in-out;
+    transition: 150ms all ease-in-out;
     cursor: pointer;
+}
+
+#add-question {
+    align-items: center;
+    justify-content: center;
+}
+
+#add-question i {
+    color: #ededed;
+    --ggs: 4;
+    transition: 200ms all ease-in-out;
+}
+
+#add-question i:hover {
+    box-shadow: 0px 0px 10px #ededed;
 }
 
 .b-card:hover {
@@ -159,4 +179,80 @@ body {
 
 .card-reponse-btn {
     cursor: pointer;
+}
+
+/*  */
+/*  */
+#q-form-cont {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    /*  */
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    /*  */
+    display: none;
+}
+
+#q-form {
+    background-color: white;
+    border-radius: 10px;
+    width: 60%;
+    height: 55%;
+    /*  */
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    /*  */
+    /* text-align: center; */
+}
+
+.q-form-gap {
+    margin-bottom: 20px;
+}
+
+#q-form-title {
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+#q-form-service {
+    display: flex;
+    flex-direction: column;
+}
+
+#q-form-service-input {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#q-form-services {
+    margin-left: 20px;
+}
+
+#q-form-txt {
+    display: flex;
+    flex-direction: column;
+}
+
+#q-form-txtarea {
+    margin-top: 10px;
+    /* width: 100%; */
+    /* height: 100%; */
+}
+
+/*  */
+#q-form-btns {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#q-form-btn-anuller {
+    margin-right: 5px;
 }
