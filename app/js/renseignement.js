@@ -19,11 +19,11 @@ $(document).ready(() => {
     // 
     $('#q-form-btn-postuler').click(() => {
         // 
-        // Assuming validation was mad
+        // Assuming validation was made
         $.post('/jsonSave', {
             class: "Question",
             data: {
-                text: $('#q-form-txtarea').text(),
+                text: $('#q-form-txtarea').val(),
                 clientId: "JKQSHD876",
                 serviceId: $("#q-form-services").children("option:selected").val()
             }
@@ -66,11 +66,22 @@ function cardMaker(question) {
     cardInfos.appendChild(cardInfoDate);
     // 
     // 
-    let cardReponseInput = makeEelement('input', 'card-responce-txt');
+    let cardReponseInput = makeEelement('input', 'card-response-txt');
     cardReponseInput.setAttribute('type', 'text');
     cardReponseInput.setAttribute('placeholder', 'Votre reponse ...');
     // 
     let cardReponseIcon = makeEelement('i', 'gg-mail card-reponse-btn');
+    cardReponseIcon.addEventListener('click', () => {
+        // var txtValue = document.getElementsByClassName('card-response-txt')[question.index];
+        let txtValue = $('.card-response-txt')[question.index];
+        // 
+        $.post('/submitResponse', {
+            index: question.index,
+            reponseText: $(txtValue).val()
+        }, (response) => {
+            console.log(response);
+        });
+    });
     // 
     cardReponse.appendChild(cardReponseInput);
     cardReponse.appendChild(cardReponseIcon);
@@ -95,8 +106,30 @@ function makeEelement(elem, elemClass) {
 }
 // 
 function showQuestionForm() {
-    $('#q-form-cont').css({
-        'display': "flex"
+    $.post("/jsonGetAll", {
+        class: "Service"
+    }, (services) => {
+        services = JSON.parse(services);
+        // 
+        document.getElementById('q-form-services').innerHTML = "";
+        // 
+        services.forEach(element => {
+            var option = document.createElement('option');
+            option.setAttribute('value', element.id);
+            option.setAttribute('data-desc', element.description);
+            option.innerText = element.nom;
+            // 
+            document.getElementById('q-form-services').appendChild(option);
+        });
+        // 
+        $('#q-form-cont').css({
+            'display': "flex"
+        });
+        // 
+        document.getElementById('q-form-services').addEventListener('change', () => {
+            // console.log("ff");
+            document.getElementById('q-form-service-desc').innerText = $("#q-form-services").children("option:selected").attr('data-desc');
+        });
     });
 }
 

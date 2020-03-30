@@ -73,11 +73,12 @@ class Service {
 }
 //
 class Question {
-    constructor(text, clientId, ServiceId, dateQuestion = null) {
+    constructor(text, clientId, ServiceId, dateQuestion = null, resolved = false) {
         this.text = text;
         this.clientId = clientId;
         this.serviceId = ServiceId;
         this.dateQuestion = dateQuestion;
+        this.resolved = resolved;
     }
     // 
     setDateQuestion(date) {
@@ -89,10 +90,11 @@ class Question {
             text: this.text,
             clientId: this.clientId,
             serviceId: this.serviceId,
-            dateQuestion: this.dateQuestion
+            dateQuestion: this.dateQuestion,
+            resolved: this.resolved
         }
         if (type != 'object')
-            returnData = [this.text, this.clientId, this.serviceId, this.dateQuestion];
+            returnData = [this.text, this.clientId, this.serviceId, this.dateQuestion, this.resolved];
         // 
         return returnData;
     }

@@ -1,4 +1,5 @@
 const _EXPRESS = require('express');
+// const _SESSION = require('express-session');
 const _APP = _EXPRESS();
 const _BODY_PARSER = require('body-parser')
 const _PATH = require('path');
@@ -10,6 +11,9 @@ _APP.use(_BODY_PARSER.json()); // to support JSON-encoded bodies
 _APP.use(_BODY_PARSER.urlencoded({ // to support URL-encoded bodies
     extended: true
 }));
+// SESSIONS MANAGMENT
+// _APP.use(_SESSION({ }));
+
 // SEND AN HTML FILE WHEN THE REQUESTED URL IS CALLED
 _APP.get('/', (req, res) => {
     res.sendFile(_PATH.join(__dirname, 'app', 'index.html'));
@@ -48,24 +52,45 @@ _APP.post('/jsonRemoveById', async function (req, res) {
 _APP.post('/getQuestions', async function (req, res) {
     let questions = await _FUNCS.jsonGetAll("Question");
     // 
+    // console.log(questions);
     let results = [];
     // 
     for (let i = 0; i < questions.length; i++) {
         let question = questions[i].getAll();
-        // console.log(question);
-        let client = await _FUNCS.searchBy("Client", question.clientId);
-        let service = await _FUNCS.searchBy("Service", question.serviceId);
-        // 
-        results.push({
-            index: i,
-            txt: question.text,
-            client: `${client.nom} ${client.prenom}`,
-            service: service.nom,
-            date: question.dateQuestion
-        });
+        // ONLY RETURN UNANSWERED QUESTIONS
+        if (!question.resolved) {
+            let client = await _FUNCS.searchBy("Client", question.clientId);
+            let service = await _FUNCS.searchBy("Service", question.serviceId);
+            // 
+            results.push({
+                index: i,
+                txt: question.text,
+                client: `${client.nom} ${client.prenom}`,
+                service: service.nom,
+                date: question.dateQuestion
+            });
+        }
     }
     // 
     res.end(JSON.stringify(results));
+});
+// 
+_APP.post('/submitResponse', async function (req, res) {
+    let questions = await _FUNCS.jsonGetAll("Question");
+    let question = questions[req.body.index];
+    // 
+    let result = await _FUNCS.addToJson("Reponse", {
+        reponse: req.body.reponseText,
+        clientId: question.clientId,
+        serviceId: question.serviceId
+    });
+    // IF THE RESPONSE WAS SUBMITED SUCCESSFULLY CHANGE THE RESPONSE STATE TO SOLVED
+    if (result) {
+        let ggg = await _FUNCS.updateQuestionStatus(req.body.index);
+        console.log(ggg);
+    }
+    // 
+    res.end(result.toString());
 });
 // GIVE THE LOCAL SERER TO ACCESS /APP FOLDER
 _APP.use('/', _EXPRESS.static(_PATH.join(__dirname, 'app')));

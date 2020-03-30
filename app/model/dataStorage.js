@@ -142,6 +142,24 @@ async function removeFromJson(className, id) {
     // console.log(returnMsg);
     return returnMsg;
 }
+// CHANGE THE WANTED QUESTION STATUS TO RESOLVED
+async function updateQuestionStatus(index) {
+    const FILE_PATH = _PATH.join(__dirname, '..', 'data', `Question.json`);
+    // FEEDBACK A RETOURNER A L'UTILISATEUR
+    let retValue = true;
+    // 
+    var questions = await jsonGetAll("Question");
+    if (questions != null) {
+        let dataObject = [];
+        for (let i = 0; i < questions.length; i++) {
+            dataObject.push(questions[i].getAll());
+        }
+        dataObject[index].resolved = true;
+        await _FS.writeJSON(FILE_PATH, dataObject);
+    } else retValue = false;
+    // 
+    return retValue;
+}
 // FUNCTION THAT RETURNS THE SERVER'S CURRENT DATE 🙌
 function getCurrentDate() {
     let date = new Date();
@@ -158,7 +176,7 @@ function jsonToClass(objectData, className) {
             retClass = new dataObjects.Service(objectData.nom, objectData.description, objectData.id);
             break;
         case 'Question':
-            retClass = new dataObjects.Question(objectData.text, objectData.clientId, objectData.serviceId, objectData.dateQuestion);
+            retClass = new dataObjects.Question(objectData.text, objectData.clientId, objectData.serviceId, objectData.dateQuestion, objectData.resolved);
             break;
         case 'Reponse':
             retClass = new dataObjects.Reponse(objectData.reponse, objectData.clientId, objectData.serviceId, objectData.dateReponse);
@@ -178,5 +196,6 @@ module.exports = {
     jsonGetAll,
     searchBy,
     addToJson,
-    removeFromJson
+    removeFromJson,
+    updateQuestionStatus
 }
