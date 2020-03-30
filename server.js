@@ -61,9 +61,11 @@ _APP.post('/getQuestions', async function (req, res) {
         if (!question.resolved) {
             let client = await _FUNCS.searchBy("Client", question.clientId);
             let service = await _FUNCS.searchBy("Service", question.serviceId);
+            console.log(service);
             // 
             results.push({
                 index: i,
+                sId: service.id,
                 txt: question.text,
                 client: `${client.nom} ${client.prenom}`,
                 service: service.nom,
@@ -71,6 +73,7 @@ _APP.post('/getQuestions', async function (req, res) {
             });
         }
     }
+    console.log(results);
     // 
     res.end(JSON.stringify(results));
 });
@@ -85,10 +88,8 @@ _APP.post('/submitResponse', async function (req, res) {
         serviceId: question.serviceId
     });
     // IF THE RESPONSE WAS SUBMITED SUCCESSFULLY CHANGE THE RESPONSE STATE TO SOLVED
-    if (result) {
-        let ggg = await _FUNCS.updateQuestionStatus(req.body.index);
-        console.log(ggg);
-    }
+    if (result)
+        result = await _FUNCS.updateQuestionStatus(req.body.index);
     // 
     res.end(result.toString());
 });

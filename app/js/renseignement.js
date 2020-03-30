@@ -1,4 +1,24 @@
 $(document).ready(() => {
+    // REMPLIRE LES CHAMPS SELECT AVEC LES SERVICES
+    fillServicesSelects();
+    // 
+    document.getElementById('services-filter').addEventListener('change', (e) => {
+        let boxes = document.getElementsByClassName('b-card');
+        let srv = document.getElementsByClassName('card-info-service');
+        // 
+        let serviceId = e.target.options[e.target.options.selectedIndex].value;
+        for (let i = 0; i < boxes.length; i++) {
+            if (serviceId == "*")
+                boxes[i].style.display = "flex";
+            else {
+                if (srv[i].getAttribute('data-service') == serviceId)
+                    boxes[i].style.display = "flex";
+                else
+                    boxes[i].style.display = "none";
+            }
+        }
+    });
+    // 
     $.post("/getQuestions", {}, (response) => {
         const questions = JSON.parse(response);
         // FILL QUESTION FROM THE JSON FILE
@@ -58,6 +78,8 @@ function cardMaker(question) {
     // 
     cardInfoName.innerText = question.client;
     cardInfoService.innerText = question.service;
+    console.log(question);
+    cardInfoService.setAttribute('data-service', question.sId);
     // 
     cardInfoTop.appendChild(cardInfoName);
     cardInfoTop.appendChild(cardInfoService);
@@ -106,6 +128,40 @@ function makeEelement(elem, elemClass) {
 }
 // 
 function showQuestionForm() {
+    // $.post("/jsonGetAll", {
+    //     class: "Service"
+    // }, (services) => {
+    //     services = JSON.parse(services);
+    //     // 
+    //     document.getElementById('q-form-services').innerHTML = "";
+    //     // 
+    //     services.forEach(element => {
+    //         var option = document.createElement('option');
+    //         option.setAttribute('value', element.id);
+    //         option.setAttribute('data-desc', element.description);
+    //         option.innerText = element.nom;
+    //         // 
+    //         document.getElementById('q-form-services').appendChild(option);
+    //     });
+    //     // 
+    $('#q-form-cont').css({
+        'display': "flex"
+    });
+    //     // 
+    document.getElementById('q-form-services').addEventListener('change', () => {
+        // console.log("ff");
+        document.getElementById('q-form-service-desc').innerText = $("#q-form-services").children("option:selected").attr('data-desc');
+    });
+    // });
+}
+
+function hideQuestionForm() {
+    $('#q-form-cont').css({
+        'display': "none"
+    });
+}
+// 
+function fillServicesSelects() {
     $.post("/jsonGetAll", {
         class: "Service"
     }, (services) => {
@@ -114,27 +170,21 @@ function showQuestionForm() {
         document.getElementById('q-form-services').innerHTML = "";
         // 
         services.forEach(element => {
+            // WHY DO I HAVE [OPTION & OPTIONCOPY YOU MAY ASK ?] 
+            // APPENDING THE NODE TO MORE THAN ONE ELEMENT WON'T APPLY TO THEM BOTH
+            // BECAUSE OF HOW NODES WORK
+            // THEYWILL RESULT IN ONLY THE LAST ELEMENT IT WAS APPENDED TO TO GET THAT CHILD
+            // SO THE SOLUTION WOULD BE TO MAKE 2 NODES FROM THE GET GO
             var option = document.createElement('option');
+            let optionCopy = document.createElement('option');
             option.setAttribute('value', element.id);
-            option.setAttribute('data-desc', element.description);
+            optionCopy.setAttribute('value', element.id);
             option.innerText = element.nom;
+            optionCopy.innerText = element.nom;
+            document.getElementById('services-filter').appendChild(option);
             // 
-            document.getElementById('q-form-services').appendChild(option);
+            optionCopy.setAttribute('data-desc', element.description);
+            document.getElementById('q-form-services').appendChild(optionCopy);
         });
-        // 
-        $('#q-form-cont').css({
-            'display': "flex"
-        });
-        // 
-        document.getElementById('q-form-services').addEventListener('change', () => {
-            // console.log("ff");
-            document.getElementById('q-form-service-desc').innerText = $("#q-form-services").children("option:selected").attr('data-desc');
-        });
-    });
-}
-
-function hideQuestionForm() {
-    $('#q-form-cont').css({
-        'display': "none"
     });
 }
