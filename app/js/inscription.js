@@ -175,3 +175,24 @@ function validationConnectionMotDePass()
     }
     return valid;
 }
+function inscriptionToConnection()
+{
+    $(".formInscription").css("transform" , "rotateY(90deg)");
+    setTimeout(
+        function() 
+        {
+            $(".formConnection").css("transform" , "rotateY(0deg)");
+        }, 2000);
+    
+}
+
+function connectionToInscription()
+{
+    $(".formConnection").css("transform" , "rotateY(90deg)");
+    setTimeout(
+        function() 
+        {
+            $(".formInscription").css("transform" , "rotateY(0deg)");
+        }, 2000);
+    
+}

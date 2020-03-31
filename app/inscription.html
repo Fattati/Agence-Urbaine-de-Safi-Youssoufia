@@ -9,13 +9,13 @@
   </head>
   <body>
       <div class="general">
-        <div class="container formInscription">
+        <div class="container formInscription" style="display: block;">
             <div class="row">
                 <div class="col-md-3 register-left">
                     <img src="img/userIcon.png" alt=""/>
                     <h3>Nous saluons le retour</h3>
                     <p>pour rester connecté avec nous, veuillez vous connecter avec vos informations personnelles</p>
-                    <input type="button" name="" value="Connection"/><br/>
+                    <input type="button" value="Connection" onclick="inscriptionToConnection()"/><br/>
                 </div>
                 <div class="col-md-9 register-right">
                     <div class="tab-content" id="myTabContent">
@@ -58,13 +58,13 @@
             </div>
         </div>
 
-        <div class="container formConnection" style="display: none;">
+        <div class="container formConnection">
             <div class="row">
                 <div class="col-md-3 register-left">
                     <img src="img/userIcon.png" alt=""/>
                     <h3>Nouveau ici ?</h3>
                     <p>entrez vos informations personnelles et commencez la connexion avec nous</p>
-                    <input type="button" name="" value="Inscription"/><br/>
+                    <input type="button" value="Inscription" onclick="connectionToInscription()"/><br/>
                 </div>
                 <div class="col-md-9 register-right">
                     <div class="tab-content" id="myTabContent">
@@ -94,8 +94,8 @@
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>*
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="js/inscription.js"></script>
   </body>
 </html>

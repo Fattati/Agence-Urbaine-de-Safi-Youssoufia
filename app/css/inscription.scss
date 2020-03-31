@@ -1,5 +1,5 @@
-@import url('https://fonts.google.com/specimen/Inter');
-* { font-family: 'Inter' }
+// @import url('https://fonts.google.com/specimen/Inter');
+// * { font-family: 'Inter' }
 .general
 {
     & .formInscription
@@ -11,9 +11,11 @@
         background-image: url("../img/4.png");
         position: relative;
         top: -500px;
+        transform: rotateY(90deg);
     }
     margin-top: 100px;
     & .formInscription,& .formConnection{
+        transition: 2s;
         background-size: cover;
         padding: 3%;
         height: 500px;
@@ -81,6 +83,7 @@
         }
     }
 }
+
 @keyframes mover {
     0% { transform: translateY(0); }
     100% { transform: translateY(-20px); }
