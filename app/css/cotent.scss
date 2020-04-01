@@ -1,0 +1,119 @@
+body,
+html {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'Inter', sans-serif;
+}
+
+$color1: #E9D37F;
+$color2: #96C5F3;
+$color3: #2893DA;
+$color4: #FEB435;
+
+$grid-columns: 12;
+$grid-gutter-width: 30px;
+
+$grid-breakpoints: ( // Extra small screen / phone
+    xs: 0,
+    // Small screen / phone
+    sm: 576px,
+    // Medium screen / tablet
+    md: 768px,
+    // Large screen / desktop
+    lg: 992px,
+    // Extra large screen / wide desktop
+    xl: 1200px);
+
+$container-max-widths: (sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px);
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: bolder;
+    font-size: 3em;
+}
+
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: bolder;
+    font-size: 2em;
+}
+
+.little {
+    font-weight: lighter;
+    font-size: 0.5em;
+}
+
+.picy {
+    background-image: url(../img/square.png);
+    background-repeat: no-repeat;
+}
+
+.btn {
+    background-color: $color1;
+    border-radius: 0em;
+    border-color: $color1;
+    margin: 10px;
+    color: white;
+}
+
+.main {
+    position: relative;
+    background: url(../img/3.jpg);
+    background-size: cover;
+    background-position: center;
+    padding: 220px 0 220px;
+    min-height: 92vh;
+    margin: 10px;
+    background-repeat: no-repeat;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+// .carré {
+//     width: 70%;
+//     height: 70%;
+//     background-color: red;
+// }
+
+.division {
+    background-color: white;
+    // height: 200px;
+    width: 80%;
+    margin-left: -195px;
+    vertical-align: bottom;
+}
+
+// @media (min-width: 576px) { ... }
+
+// // Medium devices (tablets, 768px and up)
+// @media (min-width: 768px) { ... }
+
+// // Large devices (desktops, 992px and up)
+// @media (min-width: 992px) { ... }
+
+// // Extra large devices (large desktops, 1200px and up)
+// @media (min-width: 1200px) { ... }
+
+.one {
+    background-color: none;
+    border-style: solid;
+    border-color: black;
+    margin: 20px;
+    height: 303px;
+}
+
+.text {
+    text-align: center;
+    padding: 34px;
+}
+
+.two {
+    background-color: $color2;
+    margin: 20px;
+    padding: 40px;
+}

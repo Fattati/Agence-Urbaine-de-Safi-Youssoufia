@@ -14,18 +14,6 @@ html {
 
 .navbar {
   background-color: transparent;
-  padding: 0.5rem 3rem;
-}
-
-.main {
-  position: relative;
-  background: url(../img/3.jpg);
-  background-size: cover;
-  background-position: center;
-  padding: 220px 0 220px;
-  min-height: 92vh;
-  margin: 10px;
-  background-repeat: no-repeat;
 }
 
 .nav-link {
