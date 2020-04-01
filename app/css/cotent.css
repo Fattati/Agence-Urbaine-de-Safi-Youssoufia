@@ -29,7 +29,7 @@ h1 {
   background-repeat: no-repeat;
 }
 
-.btn {
+.botona {
   background-color: #E9D37F;
   border-radius: 0em;
   border-color: #E9D37F;
@@ -66,7 +66,7 @@ h1 {
 }
 
 .text {
-  text-align: center;
+  text-align: left;
   padding: 34px;
 }
 
@@ -74,5 +74,36 @@ h1 {
   background-color: #96C5F3;
   margin: 20px;
   padding: 40px;
+}
+
+.trois {
+  margin: 25px;
+}
+
+.liny {
+  margin: 50px;
+}
+
+.icony {
+  width: 100%;
+}
+
+.imagy {
+  width: 50%;
+}
+
+.hello {
+  margin-top: 20px;
+}
+
+.yellow {
+  background-color: #E9D37F;
+  text-align: left;
+  padding: 20px;
+}
+
+.back {
+  color: black;
+  background-color: #96C5F3;
 }
 /*# sourceMappingURL=cotent.css.map */

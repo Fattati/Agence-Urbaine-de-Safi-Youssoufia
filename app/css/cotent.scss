@@ -53,7 +53,7 @@ h1 {
     background-repeat: no-repeat;
 }
 
-.btn {
+.botona {
     background-color: $color1;
     border-radius: 0em;
     border-color: $color1;
@@ -108,7 +108,7 @@ h1 {
 }
 
 .text {
-    text-align: center;
+    text-align: left;
     padding: 34px;
 }
 
@@ -116,4 +116,34 @@ h1 {
     background-color: $color2;
     margin: 20px;
     padding: 40px;
+}
+
+.trois {
+    margin: 25px;
+}
+
+.liny {
+    margin: 50px;
+}
+.icony {
+    width: 100%;
+}
+.imagy {
+    width: 50%;
+}
+
+.hello {
+    margin-top: 20px;
+}
+
+.yellow {
+    background-color: $color1;
+    text-align: left;
+    padding: 20px;
+}
+
+.back {
+    color: black;
+    background-color: $color2;
+
 }
