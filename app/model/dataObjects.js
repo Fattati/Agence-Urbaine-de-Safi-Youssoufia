@@ -29,8 +29,8 @@ class Client {
     //RETUEN CREDENTIELS DATA
     getCred(type = 'object') {
         let returnData = {
-            id: this.email,
-            password: this.motPass
+            email: this.email,
+            motPass: this.motPass
         }
         // 
         if (type != 'object')

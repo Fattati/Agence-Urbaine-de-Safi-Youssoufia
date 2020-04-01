@@ -118,7 +118,7 @@ function validationMotDePass()
     }
     return valid;
 }
-function confirmationMotDePass()
+function confirmationMotDePass1()
 {
     if(validationMotDePass())
     {
@@ -196,3 +196,50 @@ function connectionToInscription()
         }, 2000);
     
 }
+
+$('#btnRegister').click(() => {
+    if(validationCin() && validationNom() && validationPrenom() && validationDateNaissance() && validationEmail() && validationNumeroDeTelephone() && validationMotDePass())
+    {
+        $.post('/jsonSave', {
+            class:"Client",
+            data:{
+                cin: $('#inscriptionCin').val(),
+                nom: $('#inscriptionNom').val(),
+                prenom: $('#inscriptionPrenom').val(),
+                dateN: $('#inscriptionDateNaissance').val(),
+                email: $('#inscriptionEmail').val(),
+                numeroTel: $('#inscriptionNumeroDeTelephone').val(),
+                motPass: $('#inscriptionMotDePass').val()
+            }
+        }, (response) => {
+            if(response=="true")
+            {
+                sessionStorage.setItem("email", $('#inscriptionEmail').val());
+                console.log(sessionStorage.getItem("email"));
+                document.location.href = '/renseignement';
+            }
+        });
+    }
+});
+$('#btnconnection').click(() => {
+    if(validationConnectionEmail() && validationConnectionMotDePass())
+    {
+        $.post('/jsonConnection', {
+            data:{
+                email: $('#ConnectionEmail').val(),
+                motPass: $('#ConnectionMotDePass').val()
+            }
+        }, (response) => {
+                if(response=="true")
+                {
+                    sessionStorage.setItem("email", $('#ConnectionEmail').val());
+                    console.log(sessionStorage.getItem("email"));
+                    document.location.href = '/renseignement';
+                }
+                else
+                {
+                    alert("email ou mot de passe est incorrect");
+                }
+        });
+    }
+});

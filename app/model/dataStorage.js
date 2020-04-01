@@ -191,11 +191,30 @@ function jsonToClass(objectData, className) {
 async function pathExists(path) {
     return await _FS.pathExists(path);
 }
+//RETURN A CLIENT OF THE SERCHED FOR VALUE👀
+async function searchByEmailAndPass(data) {
+    const _DATA = await jsonGetAll("Client");
+    let retValue=false;
+    _DATA.forEach(data_objet => {
+        if(retValue == false)
+        {
+            if (data_objet.getCred().email==data.email && data_objet.getCred().motPass==data.motPass){
+                retValue = true;
+            }
+        }
+    });
+    return retValue;
+}
+
+
 // 
 module.exports = {
     jsonGetAll,
     searchBy,
     addToJson,
     removeFromJson,
-    updateQuestionStatus
+    updateQuestionStatus,
+    searchByEmailAndPass
 }
+
+
