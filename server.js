@@ -33,6 +33,11 @@ _APP.post('/jsonSave', async function (req, res) {
     let result = await _FUNCS.addToJson(req.body.class, req.body.data);
     res.end(result.toString());
 });
+// REQUEST TO CONNECYION WITH THE GIVEN DATA
+_APP.post('/jsonConnection', async function (req, res) {
+    let result = await _FUNCS.searchByEmailAndPass(req.body.data);
+    res.end(result.toString());
+});
 //REQUEST TO GET ALL DATA OF A CLASS
 _APP.post('/jsonGetAll', async function (req, res) {
     let result = await _FUNCS.jsonGetAll(req.body.class);
